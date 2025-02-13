@@ -1,4 +1,4 @@
-//  Copyright (c) 2024 IBM Corporation and others.
+//  Copyright (c) 2025 IBM Corporation and others.
 // Licensed under Creative Commons Attribution-NoDerivatives
 // 4.0 International (CC BY-ND 4.0)
 //   https://creativecommons.org/licenses/by-nd/4.0/
@@ -21,7 +21,7 @@
 :page-seo-description: A getting started tutorial on how to build a dynamic web application using Jakarta Faces for the user interface (UI), Jakarta Contexts and Dependency Injection (CDI) for bean management, and Jakarta Expression Language (EL) for data binding and handling in Java.
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/prod
 :source-highlighter: prettify
-= Building a dynamic web application using Jakarta Faces
+= Building a dynamic web application with integrated user interface and backend logic
 
 [.hidden]
 NOTE: This repository contains the guide documentation source. To view the guide in published form, view it on the https://openliberty.io/guides/{projectid}.html[Open Liberty website].
@@ -36,7 +36,9 @@ Learn how to build a dynamic web application using Jakarta Faces, Jakarta Contex
 
 You'll learn how to build a dynamic web application using Jakarta Faces for the user interface (UI), Jakarta Contexts and Dependency Injection (CDI) for managing backend logic, and Jakarta Expression Language (EL) for data binding.
 
-Jakarta Faces is a powerful framework for building web applications with reusable UI components. It provides an API for managing component state, handling events, server-side validation, page navigation, and supports internationalization. The framework also offers tag libraries for adding components and binding them to server-side objects, simplifying UI development. Jakarta Contexts and Dependency Injection provides a flexible way to manage the lifecycle of backend beans, allowing managed beans to be automatically created and injected when needed. Jakarta Expression Language allows data binding between the UI and the backend, enabling components to display dynamic data and respond to user actions.
+Jakarta Faces is a framework for building component-based web applications that simplifies UI development by managing reusable components, handling user interactions, and binding data to backend logic. It provides built-in lifecycle management, event handling, and server-side validation, reducing the need for manual request processing. Jakarta Faces also includes tag libraries that allows developers define UI components using markup and connect them to backend objects without writing repetitive setup code.
+
+To further streamline development, Jakarta Faces works with CDI to manage backend components. CDI allows beans to be automatically created and injected where needed, making it easier to manage application logic. Jakarta Expression Language enables data binding between the UI and backend, allowing UI components to dynamically display data and trigger backend actions.
 
 The application you will build in this guide is a dynamic web application that displays system load data on demand. Using Jakarta Faces for the UI, you'll create a table to show the system CPU load and heap memory usage. You'll also learn how to use CDI to provide the system load data from a managed bean, and to use Jakarta Expression Language to bind this data to the UI components.
 
@@ -79,7 +81,7 @@ mvn liberty:stop
 // =================================================================================================
 == Creating a static Jakarta Faces page
 
-Start by creating a static Jakarta Faces page that displays an empty table for system load data, which serves as the starting point for your application.
+Start by creating a page that displays an empty table by using Jakarta Faces to extend standard HTML. The table will display the system load data and serves as the starting point for your application.
 
 Navigate to the `start` directory to begin.
 
@@ -125,11 +127,11 @@ The [hotspot file=0]`index.xhtml` file combines standard HTML elements with Jaka
 At this point, the page defines a table that has no data entries. We'll add dynamic content in the following steps.
 
 // =================================================================================================
-// Mapping Faces Servlet
+// Configuring the Faces Servlet
 // =================================================================================================
-== Mapping Faces Servlet
+== Configuring the Faces Servlet
 
-Before you can access the Jakarta Faces page, you need to configure the Faces servlet in your application. This servlet handles all requests for `.xhtml` pages and processes them using Jakarta Faces.
+Before you can access the Jakarta Faces page, you need to configure a Faces servlet in your application. This servlet handles all requests for `.xhtml` pages and processes them using Jakarta Faces.
 
 [role="code_command hotspot file=0", subs="quotes"]
 ----
@@ -180,7 +182,7 @@ SystemLoadBean.java
 include::finish/src/main/java/io/openliberty/guides/bean/SystemLoadBean.java[]
 ----
 
-Annotate the [hotspot file=0]`SystemLoadBean` class with a [hotspot=namedAnnotation file=0]`@Named` annotation to make it accessible in the Jakarta Faces pages under the [hotspot=namedAnnotation file=0]`systemLoadBean` name . Because the `SystemLoadBean` bean is a CDI managed bean, a scope is necessary. Annotating it with the [hotspot=applicationScopedAnnotation file=0]`@ApplicationScoped` annotation indicates that it is initialized once and is shared between all requests while the application runs. To learn more about CDI, see the https://openliberty.io/guides/cdi-intro.html[Injecting dependencies into microservices^] guide.
+Annotate the [hotspot file=0]`SystemLoadBean` class with a [hotspot=namedAnnotation file=0]`@Named` annotation to make it accessible in the Jakarta Faces pages under the [hotspot=namedAnnotation file=0]`systemLoadBean` name. Because the `SystemLoadBean` bean is a CDI-managed bean, a scope is necessary. Annotating it with the [hotspot=applicationScopedAnnotation file=0]`@ApplicationScoped` annotation indicates that it is initialized once and is shared between all requests while the application runs. To learn more about CDI, see the https://openliberty.io/guides/cdi-intro.html[Injecting dependencies into microservices^] guide.
 
 The [hotspot=postConstruct file=0]`@PostConstruct` annotation ensures the [hotspot=init file=0]`init()` method runs after the [hotspot=systemLoadBean file=0]`SystemLoadBean` is initialized and dependencies are injected. The [hotspot=init file=0]`init()` method sets up any required resources for the bean's lifecyccle.
 
@@ -193,7 +195,7 @@ The [hotspot=getSystemLoads file=0]`getSystemLoads()` method is a getter method 
 // =================================================================================================
 == Binding data to the UI with expression language
 
-Now that you have implemented the backend logic with CDI, you'll update the Jakarta Faces page to display the dynamic system load data by using Jakarta Expression Language to bind the UI components to the backend data.
+Now that you have implemented the backend logic with CDI, you'll update the Jakarta Faces page to display the dynamic system load data. You'll do this by using Jakarta Expression Language to bind the UI components to the backend data.
 
 [role="code_command hotspot file=0", subs="quotes"]
 ----
@@ -221,9 +223,9 @@ styles.css
 include::finish/src/main/webapp/resources/css/styles.css[]
 ----
 
-The [hotspot file=0]`index.xhtml` uses an [hotspot=commandButton file=0]`h:commandButton` tag to create the refresh button. When the button is clicked, the [hotspot=commandButtonAction file=0]`#{systemLoadBean.fetchSystemLoad}` action invokes the [hotspot=fetchSystemLoadMethod file=1]`fetchSystemLoad()` method using Jakarta Expression Language. This EL expression references the [hotspot=namedAnnotation file=1]`systemLoadBean` managed bean, triggering the method to update the system load data. The [hotspot=ajaxTag file=0]`f:ajax` tag ensures that the [hotspot=systemLoadForm file=0]`systemLoadForm` component is re-rendered without requiring a full page reload.
+The [hotspot file=0]`index.xhtml` uses an [hotspot=commandButton file=0]`h:commandButton` tag to create the refresh button. When the button is clicked, the [hotspot=commandButtonAction file=0]`#{systemLoadBean.fetchSystemLoad}` action invokes the [hotspot=fetchSystemLoadMethod file=1]`fetchSystemLoad()` method using Jakarta Expression Language. This expression references the [hotspot=namedAnnotation file=1]`systemLoadBean` managed bean, triggering the method to update the system load data. The [hotspot=ajaxTag file=0]`f:ajax` tag ensures that the [hotspot=systemLoadForm file=0]`systemLoadForm` component is re-rendered without requiring a full page reload.
 
-The [hotspot=systemLoadsTable file=0]`systemLoadsTable` is populated using the `h:dataTable` tag, which iterates over the list of system load data provided by the [hotspot=namedAnnotation file=1]`systemLoadBean`. The [hotspot=dataBind file=0]`#{systemLoadBean.systemLoads}` EL expression calls the [hotspot=getSystemLoads file=1]`getSystemLoads()` method from the managed bean, binding the data to the UI components. If the `systemLoadBean` isn't created yet, it is automatically initialized at this point. For each entry, the `time`, `cpuLoad`, and `memoryUsage` fields are displayed by using the [hotspot=outputText1 hotspot=outputText2 hotspot=outputText3 file=0]`h:outputText` tag. The [hotspot=convertNumber1 hotspot=convertNumber2 file=0]`f:convertNumber` tag formats `cpuLoad` to seven decimal places and `memoryUsage` to two decimal places.
+The [hotspot=systemLoadsTable file=0]`systemLoadsTable` is populated using the `h:dataTable` tag, which iterates over the list of system load data provided by the [hotspot=namedAnnotation file=1]`systemLoadBean`. The [hotspot=dataBind file=0]`#{systemLoadBean.systemLoads}` expression calls the [hotspot=getSystemLoads file=1]`getSystemLoads()` method from the managed bean, binding the data to the UI components. If the `systemLoadBean` isn't created yet, it is automatically initialized at this point. For each entry, the `time`, `cpuLoad`, and `memoryUsage` fields are displayed by using the [hotspot=outputText1 hotspot=outputText2 hotspot=outputText3 file=0]`h:outputText` tag. The [hotspot=convertNumber1 hotspot=convertNumber2 file=0]`f:convertNumber` tag formats `cpuLoad` to seven decimal places and `memoryUsage` to two decimal places.
 
 To format the table, set the `styleClass`, `headerClass`, and `rowClasses` attributes in the [hotspot=dataBind file=0]`h:dataTable` tag. The style elements are defined in the [hotspot=systemLoadsTableClasses file=2]`src/main/webapp/resources/css/styles.css` file.
 
