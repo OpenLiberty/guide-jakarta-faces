@@ -9,7 +9,7 @@
 :projectid: jakarta-faces
 :page-layout: guide-multipane
 :page-duration: 25 minutes
-:page-releasedate: 2024-12-07
+:page-releasedate: 2025-02-18
 :page-essential: false
 :page-description: Learn how to build a dynamic web application using Jakarta Faces, Jakarta Contexts and Dependency Injection, and Jakarta Expression Language.
 :guide-author: Open Liberty
