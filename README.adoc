@@ -159,7 +159,6 @@ mvnw.cmd liberty:dev
 --
 [role='command']
 ```
-cd start
 ./mvnw liberty:dev
 ```
 --
@@ -168,7 +167,6 @@ cd start
 --
 [role='command']
 ```
-cd start
 ./mvnw liberty:dev
 ```
 --
