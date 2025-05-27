@@ -273,7 +273,7 @@ include::finish/src/main/java/io/openliberty/guides/bean/SystemLoadBean.java[]
 
 Annotate the [hotspot file=0]`SystemLoadBean` class with a [hotspot=namedAnnotation file=0]`@Named` annotation to make it accessible in the Jakarta Faces pages under the [hotspot=namedAnnotation file=0]`systemLoadBean` name. Because the `SystemLoadBean` bean is a CDI-managed bean, a scope is necessary. Annotating it with the [hotspot=applicationScopedAnnotation file=0]`@ApplicationScoped` annotation indicates that it is initialized once and is shared between all requests while the application runs. To learn more about CDI, see the https://openliberty.io/guides/cdi-intro.html[Injecting dependencies into microservices^] guide.
 
-The [hotspot=postConstruct file=0]`@PostConstruct` annotation ensures the [hotspot=init file=0]`init()` method runs after the [hotspot=systemLoadBean file=0]`SystemLoadBean` is initialized and dependencies are injected. The [hotspot=init file=0]`init()` method sets up any required resources for the bean's lifecyccle.
+The [hotspot=postConstruct file=0]`@PostConstruct` annotation ensures the [hotspot=init file=0]`init()` method runs after the [hotspot=systemLoadBean file=0]`SystemLoadBean` is initialized and dependencies are injected. The [hotspot=init file=0]`init()` method sets up any required resources for the bean's lifecycle.
 
 The [hotspot=fetchSystemLoadMethod file=0]`fetchSystemLoad()` method retrieves the current system load and memory usage, then updates the list of system load data.
 
