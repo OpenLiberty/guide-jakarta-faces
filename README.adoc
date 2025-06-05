@@ -54,11 +54,34 @@ The `finish` directory in the root of this guide contains the finished applicati
 
 To try out the application, first go to the `finish` directory and run Maven with the `liberty:run` goal to build the application and deploy it to Open Liberty:
 
+include::{common-includes}/os-tabs.adoc[]
+
+[.tab_content.windows_section]
+--
 [role='command']
 ```
 cd finish
-mvn liberty:run
+mvnw.cmd liberty:run
 ```
+--
+
+[.tab_content.mac_section]
+--
+[role='command']
+```
+cd finish
+./mvnw liberty:run
+```
+--
+
+[.tab_content.linux_section]
+--
+[role='command']
+```
+cd finish
+./mvnw liberty:run
+```
+--
 
 After you see the following message, your Liberty instance is ready.
 
@@ -80,11 +103,31 @@ Click the <img src="https://raw.githubusercontent.com/OpenLiberty/guide-jakarta-
 endif::[]
 
 After you are finished checking out the application, stop the Liberty instance by pressing `CTRL+C` in the command-line session where you ran Liberty. Alternatively, you can run the `liberty:stop` goal from the `finish` directory in another shell session:
+include::{common-includes}/os-tabs.adoc[]
 
+[.tab_content.windows_section]
+--
 [role='command']
-----
-mvn liberty:stop
-----
+```
+mvnw.cmd liberty:stop
+```
+--
+
+[.tab_content.mac_section]
+--
+[role='command']
+```
+./mvnw liberty:stop
+```
+--
+
+[.tab_content.linux_section]
+--
+[role='command']
+```
+./mvnw liberty:stop
+```
+--
 
 // =================================================================================================
 // Creating a static Jakarta Faces page
@@ -102,11 +145,31 @@ cd /home/project/guide-jakarta-faces/start
 endif::[]
 
 When you run Open Liberty in https://openliberty.io/docs/latest/development-mode.html[dev mode^], dev mode listens for file changes and automatically recompiles and deploys your updates whenever you save a new change. Run the following goal to start Open Liberty in dev mode:
+include::{common-includes}/os-tabs.adoc[]
 
+[.tab_content.windows_section]
+--
 [role='command']
 ```
-mvn liberty:dev
+mvnw.cmd liberty:dev
 ```
+--
+
+[.tab_content.mac_section]
+--
+[role='command']
+```
+./mvnw liberty:dev
+```
+--
+
+[.tab_content.linux_section]
+--
+[role='command']
+```
+./mvnw liberty:dev
+```
+--
 
 After you see the following message, your Liberty instance is ready in dev mode:
 
@@ -210,7 +273,7 @@ include::finish/src/main/java/io/openliberty/guides/bean/SystemLoadBean.java[]
 
 Annotate the [hotspot file=0]`SystemLoadBean` class with a [hotspot=namedAnnotation file=0]`@Named` annotation to make it accessible in the Jakarta Faces pages under the [hotspot=namedAnnotation file=0]`systemLoadBean` name. Because the `SystemLoadBean` bean is a CDI-managed bean, a scope is necessary. Annotating it with the [hotspot=applicationScopedAnnotation file=0]`@ApplicationScoped` annotation indicates that it is initialized once and is shared between all requests while the application runs. To learn more about CDI, see the https://openliberty.io/guides/cdi-intro.html[Injecting dependencies into microservices^] guide.
 
-The [hotspot=postConstruct file=0]`@PostConstruct` annotation ensures the [hotspot=init file=0]`init()` method runs after the [hotspot=systemLoadBean file=0]`SystemLoadBean` is initialized and dependencies are injected. The [hotspot=init file=0]`init()` method sets up any required resources for the bean's lifecyccle.
+The [hotspot=postConstruct file=0]`@PostConstruct` annotation ensures the [hotspot=init file=0]`init()` method runs after the [hotspot=systemLoadBean file=0]`SystemLoadBean` is initialized and dependencies are injected. The [hotspot=init file=0]`init()` method sets up any required resources for the bean's lifecycle.
 
 The [hotspot=fetchSystemLoadMethod file=0]`fetchSystemLoad()` method retrieves the current system load and memory usage, then updates the list of system load data.
 
