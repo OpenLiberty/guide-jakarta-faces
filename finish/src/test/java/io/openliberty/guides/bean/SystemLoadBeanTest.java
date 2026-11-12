@@ -59,7 +59,7 @@ public class SystemLoadBeanTest {
     // tag::testDataIntegrity[]
     public void testDataIntegrity() {
         systemLoadBean.fetchSystemLoad();
-        SystemLoadData data = systemLoadBean.getSystemLoads().get(0);
+        SystemLoadData data = systemLoadBean.getSystemLoads().getFirst();
         assertNotNull(data.getTime(), "Time should not be null");
         assertNotNull(data.getCpuLoad(), "Recent load should not be null");
         assertNotNull(data.getMemoryUsage(), "Memory usage should not be null");

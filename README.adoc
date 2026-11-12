@@ -1,4 +1,4 @@
-//  Copyright (c) 2025 IBM Corporation and others.
+//  Copyright (c) 2025, 2026 IBM Corporation and others.
 // Licensed under Creative Commons Attribution-NoDerivatives
 // 4.0 International (CC BY-ND 4.0)
 //   https://creativecommons.org/licenses/by-nd/4.0/
@@ -199,7 +199,7 @@ footer.xhtml
 include::finish/src/main/webapp/WEB-INF/includes/footer.xhtml[]
 ----
 
-In the [hotspot file=0]`index.xhtml` file, the [hotspot=xmlns file=0]`xmlns` attributes define the XML namespaces for various Jakarta Faces tag libraries. These namespaces allow the page to use Jakarta Faces tags for templating, creating UI components, and enabling core functionality, such as form submissions and data binding. For more information on the various tag libraries and their roles in Jakarta Faces, refer to the https://jakarta.ee/learn/docs/jakartaee-tutorial/current/web/faces-facelets/faces-facelets.html#_tag_libraries_supported_by_facelets[Jakarta Faces Tag Libraries^] and the https://jakarta.ee/specifications/faces/4.0/vdldoc[VDL Documentation Generator^] documentation.
+In the [hotspot file=0]`index.xhtml` file, the [hotspot=xmlns file=0]`xmlns` attributes define the XML namespaces for various Jakarta Faces tag libraries. These namespaces allow the page to use Jakarta Faces tags for templating, creating UI components, and enabling core functionality, such as form submissions and data binding. For more information on the various tag libraries and their roles in Jakarta Faces, refer to the https://jakarta.ee/learn/docs/jakartaee-tutorial/current/web/faces-facelets/faces-facelets.html#_tag_libraries_supported_by_facelets[Jakarta Faces Tag Libraries^] and the https://jakarta.ee/specifications/faces/4.1/vdldoc[VDL Documentation Generator^] documentation.
 
 The [hotspot file=0]`index.xhtml` file combines standard HTML elements with Jakarta Faces components, providing both static layout and dynamic functionality. Standard HTML elements, like `div` and `section`, structure the page's layout. Jakarta Faces tags offer additional features beyond standard HTML, such as managing UI components, including resources, and binding data. For example, the [hotspot=outputStylesheet file=0]`h:outputStylesheet` tag loads a CSS file for styling, and the [hotspot=uiIncludeFooter file=0]`ui:include` tag incorporates reusable components, such as the provided [hotspot file=1]`footer.xhtml` file, to streamline maintenance and reuse across multiple pages. The [hotspot=dataTable file=0]`h:dataTable` tag is used to display a table.
 
